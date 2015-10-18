@@ -3,12 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>About Pixyll &#8211; nRewik's Blog</title>
+    <title>Function as First Class Citizens in Swift &#8211; nRewik's Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Nutchaphon Rewik">
-    
-    <link rel="canonical" href="//about/">
+    <meta name="keywords" content="">
+    <link rel="canonical" href="//2015/10/17/Function-as-First-Class-Citizens-in-Swift/">
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for nRewik's Blog" href="/feed.xml" />
 
     <!-- Custom CSS -->
@@ -30,17 +30,17 @@
     <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
     <meta property="og:locale" content="en_US">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="About Pixyll">
+    <meta property="og:title" content="Function as First Class Citizens in Swift">
     <meta property="og:description" content="">
-    <meta property="og:url" content="//about/">
+    <meta property="og:url" content="//2015/10/17/Function-as-First-Class-Citizens-in-Swift/">
     <meta property="og:site_name" content="nRewik's Blog">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary" />
     
-    <meta name="twitter:title" content="About Pixyll" />
+    <meta name="twitter:title" content="Function as First Class Citizens in Swift" />
     <meta name="twitter:description" content="" />
-    <meta name="twitter:url" content="//about/" />
+    <meta name="twitter:url" content="//2015/10/17/Function-as-First-Class-Citizens-in-Swift/" />
 
     <!-- Icons -->
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
@@ -122,29 +122,68 @@
 
     <div class="post p2 p-responsive wrap" role="main">
       <div class="measure">
-        <div class="post">
-  <header class="post-header">
-    <h1 class="h2">About Pixyll</h1>
-  </header>
-  <article class="post-content">
-  <p>This Jekyll theme was crafted with &lt;3 by <a href="http://johnotander.com">John Otander</a><br />
-(<a href="https://twitter.com/4lpine">@4lpine</a>).</p>
+        
 
-<p>Checkout the <a href="https://github.com/johnotander/pixyll">Github repository</a> to download it,<br />
-request a feature, report a bug, or contribute. It’s free, and open source<br />
-(<a href="http://opensource.org/licenses/MIT">MIT</a>).</p>
 
-<p>Thanks to the following:</p>
 
-<ul>
-  <li><a href="http://basscss.com">BASSCSS</a></li>
-  <li><a href="http://jekyllrb.com">Jekyll</a></li>
-  <li><a href="http://refills.bourbon.io/">Refills</a></li>
-  <li><a href="http://type-scale.com/">Type Scale</a></li>
-</ul>
 
-  </article>
+<div class="post-header mb2">
+  <h1>Function as First Class Citizens in Swift</h1>
+  <span class="post-meta">Oct 17, 2015</span><br>
+  
+  <span class="post-meta small">
+  
+    1 minute read
+  
+  </span>
 </div>
+
+<article class="post-content">
+  <p>Hi Hello There</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">UIView</span> <span class="p">:</span> <span class="kt">UIResponder</span> <span class="p">{</span>  
+	<span class="nf">init</span><span class="o">!</span><span class="p">(</span><span class="nv">frame</span><span class="p">:</span> <span class="kt">CGRect</span><span class="p">)</span>
+
+	<span class="k">var</span> <span class="nv">superview</span><span class="p">:</span> <span class="kt">UIView</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>  
+	<span class="k">var</span> <span class="nv">subviews</span><span class="p">:</span> <span class="p">[</span><span class="kt">AnyObject</span><span class="p">]</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>  
+	<span class="k">var</span> <span class="nv">window</span><span class="p">:</span> <span class="kt">UIWindow</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+
+	<span class="c1">// ...</span>
+
+	<span class="kd">func</span> <span class="nf">isDescendantOfView</span><span class="p">(</span><span class="nv">view</span><span class="p">:</span> <span class="kt">UIView</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span>
+	<span class="kd">func</span> <span class="nf">viewWithTag</span><span class="p">(</span><span class="nv">tag</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIView</span><span class="o">!</span>
+
+	<span class="c1">// ...</span>
+
+	<span class="k">var</span> <span class="nv">constraints</span><span class="p">:</span> <span class="p">[</span><span class="kt">AnyObject</span><span class="p">]</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+
+	<span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+
+</article>
+
+
+
+
+  <div class="py2 post-footer">
+  <img src="/images/me.jpeg" alt="John Otander" class="avatar" />
+  <p>
+    Pixyll is an open-source Jekyll theme that's built by <a href="http://johnotander.com">John Otander</a>.
+    When he's not writing code and building things, he likes to ski. A. Lot.
+  </p>
+  <p>
+    Follow him on <a href="https://twitter.com/4lpine">Twitter</a>.
+  </p>
+</div>
+
+
+
+
+
+
 
       </div>
     </div>
