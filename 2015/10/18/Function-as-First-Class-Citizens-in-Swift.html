@@ -64,21 +64,23 @@
   <article class="post-content">
     <p>Hi Hello There</p>
 
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">class</span> <span class="n">ParticleModel</span> <span class="p">{</span>
-	<span class="n">private</span> <span class="k">var</span> <span class="n">point</span> <span class="o">=</span> <span class="p">(</span> <span class="nl">x</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="nl">y</span><span class="p">:</span> <span class="mf">0.0</span> <span class="p">)</span>
-	<span class="n">private</span> <span class="k">var</span> <span class="n">velocity</span> <span class="o">=</span> <span class="mf">100.0</span>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">ParticleModel</span> <span class="p">{</span>
+	<span class="kd">private</span> <span class="k">var</span> <span class="nv">point</span> <span class="o">=</span> <span class="p">(</span> <span class="nv">x</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mf">0.0</span> <span class="p">)</span>
+	<span class="kd">private</span> <span class="k">var</span> <span class="nv">velocity</span> <span class="o">=</span> <span class="mf">100.0</span>
 
-	<span class="n">private</span> <span class="k">func</span> <span class="n">updatePoint</span><span class="p">(</span><span class="nl">newPoint</span><span class="p">:</span> <span class="p">(</span><span class="n">Double</span><span class="p">,</span> <span class="n">Double</span><span class="p">),</span> <span class="nl">newVelocity</span><span class="p">:</span> <span class="n">Double</span><span class="p">)</span> <span class="p">{</span>
+	<span class="kd">private</span> <span class="kd">func</span> <span class="nf">updatePoint</span><span class="p">(</span><span class="nv">newPoint</span><span class="p">:</span> <span class="p">(</span><span class="kt">Double</span><span class="p">,</span> <span class="kt">Double</span><span class="p">),</span> <span class="nv">newVelocity</span><span class="p">:</span> <span class="kt">Double</span><span class="p">)</span> <span class="p">{</span>
 		<span class="n">point</span> <span class="o">=</span> <span class="n">newPoint</span>
 		<span class="n">velocity</span> <span class="o">=</span> <span class="n">newVelocity</span>
 	<span class="p">}</span>
 
-	<span class="k">func</span> <span class="n">update</span><span class="p">(</span><span class="nl">newP</span><span class="p">:</span> <span class="p">(</span><span class="n">Double</span><span class="p">,</span> <span class="n">Double</span><span class="p">),</span> <span class="nl">newV</span><span class="p">:</span> <span class="n">Double</span><span class="p">)</span> <span class="p">{</span>
-		<span class="n">updatePoint</span><span class="p">(</span><span class="n">newP</span><span class="p">,</span> <span class="nl">newVelocity</span><span class="p">:</span> <span class="n">newV</span><span class="p">)</span>
+	<span class="kd">func</span> <span class="nf">update</span><span class="p">(</span><span class="nv">newP</span><span class="p">:</span> <span class="p">(</span><span class="kt">Double</span><span class="p">,</span> <span class="kt">Double</span><span class="p">),</span> <span class="nv">newV</span><span class="p">:</span> <span class="kt">Double</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nf">updatePoint</span><span class="p">(</span><span class="n">newP</span><span class="p">,</span> <span class="nv">newVelocity</span><span class="p">:</span> <span class="n">newV</span><span class="p">)</span>
 	<span class="p">}</span>
 <span class="p">}</span>
-<span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">haha</span><span class="se">\&quot;</span><span class="s">&quot;</span>
-<span class="k">let</span> <span class="n">ccc</span> <span class="o">=</span> <span class="s">&quot;😀&quot;</span></code></pre></div>
+<span class="k">let</span> <span class="nv">x</span> <span class="o">=</span> <span class="s">"</span><span class="se">\"</span><span class="s">haha</span><span class="se">\"</span><span class="s">"</span>
+<span class="k">let</span> <span class="nv">ccc</span> <span class="o">=</span> <span class="s">"😀"</span>
+</code></pre>
+</div>
 
 
   </article>
