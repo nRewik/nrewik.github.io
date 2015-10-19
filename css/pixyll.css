@@ -109,9 +109,11 @@ svg {
 
 /* Basscss Base Typography */
 body {
-  font-family: "Merriweather", "PT Serif", Georgia, "Times New Roman", serif;
+  font-family: "Lora", "Lucida Grande", "Helvetica Neue", "Helvetica", "Arial", "Verdana", "serif";
   line-height: 1.5;
-  font-size: 100%; }
+  font-size: 100%;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased; }
 
 h1,
 h2,
@@ -122,16 +124,18 @@ h6 {
   font-family: "Lato", "Helvetica Neue", Helvetica, sans-serif;
   font-weight: 900;
   line-height: 1.25;
-  margin-top: 1em;
+  margin-top: 28px;
   margin-bottom: .5em; }
 
 p,
 dl,
 ol,
 ul {
-  font-size: 1rem;
+  font-size: 18px;
   margin-top: 0;
-  margin-bottom: 1rem; }
+  margin-bottom: 1rem;
+  font-weight: 400;
+  letter-spacing: -0.004em; }
 
 ol,
 ul {
@@ -161,32 +165,33 @@ blockquote {
 
 blockquote,
 blockquote p {
-  font-size: 1.25rem;
-  font-style: italic; }
+  font-size: 20px;
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.6); }
 
 h1,
 .h1 {
-  font-size: 2.998rem; }
+  font-size: 36px; }
 
 h2,
 .h2 {
-  font-size: 1.5rem; }
+  font-size: 26px; }
 
 h3,
 .h3 {
-  font-size: 1.25rem; }
+  font-size: 26px; }
 
 h4,
 .h4 {
-  font-size: 1rem; }
+  font-size: 24px; }
 
 h5,
 .h5 {
-  font-size: 0.875rem; }
+  font-size: 20px; }
 
 h6,
 .h6 {
-  font-size: 0.75rem; }
+  font-size: 18px; }
 
 .list-reset {
   list-style: none;
@@ -299,10 +304,7 @@ h6,
   color: #00369f; }
 
 .highlight .o {
-  color: black;
-  /*
-  color: $hljs-tag;
-  font-weight: normal;*/ }
+  color: black; }
 
 .highlight .nb {
   color: #009f06; }
@@ -465,7 +467,7 @@ hr {
 .regular {
   font-weight: normal; }
 
-.italic, .post-footer {
+.italic {
   font-style: italic; }
 
 .caps {
@@ -684,31 +686,28 @@ pre code {
   background-color: transparent;
   border-radius: 0; }
 
-pre,
-code {
-  -webkit-font-smoothing: auto;
-  font: 14px/1.8em menlo, monospace; }
+pre {
+  font-family: Menlo, Consolas, monospace;
+  font-size: 14px;
+  line-height: 1.8em;
+  -webkit-font-smoothing: auto; }
 
-/*
-code {
-  color: #000;
-}
-*/
+code.highlighter-rouge {
+  font: 14px Menlo, Consolas, monospace;
+  border-radius: 0;
+  border: 1px solid #E5E5E5;
+  background-color: #F7F7F7;
+  padding: 0.225rem 0.3rem 0.2rem 0.3rem;
+  -webkit-font-smoothing: auto; }
+
 pre {
   padding: 20px 30px 20px;
-  /* line-height: 1.11; */
   overflow-x: scroll;
   margin-bottom: 1.5rem;
   background-color: #F9FAFA;
   border: 1px solid #E6E6E6;
   tab-size: 4; }
 
-/*
-.highlight .p {
-  font-size: 1.125rem;
-  line-height: 1;
-}
-*/
 pre {
   counter-reset: line-numbering;
   white-space: pre;
@@ -841,7 +840,7 @@ abbr {
   cursor: help; }
 
 p {
-  color: #333;
+  color: rgba(0, 0, 0, 0.8);
   line-height: 1.5; }
 
 small,
@@ -854,11 +853,16 @@ small,
 
 .site-header a {
   color: #333;
-  font-size: 1.25rem;
+  font-size: 26px;
   font-weight: 300; }
 
 .site-header .site-title {
-  font-size: 1.5rem; }
+  font-size: 36px; }
+
+.site-title-logo {
+  width: 40px;
+  height: 40px;
+  margin-right: 0.3em; }
 
 .site-nav {
   margin-top: 1rem; }
@@ -1018,10 +1022,13 @@ footer {
   background-color: #fafafa;
   border-top: thin solid #f3f3f3;
   color: #7a7a7a;
-  font-size: 0.75rem;
-  font-weight: 300;
+  font-size: 12px;
+  font-weight: 400;
   padding: 2rem;
   text-align: center; }
+
+.social-footer a {
+  color: #333; }
 
 .social-icons-left, .social-icons-right {
   text-align: center;
@@ -1048,7 +1055,7 @@ blockquote {
   border-left: 5px solid #7a7a7a;
   font-style: italic;
   margin-left: 0.5rem;
-  padding: 0.5rem; }
+  padding: 0.5rem 0.5rem 0.5rem 1rem; }
 
 blockquote footer {
   background-color: #fff;
@@ -1078,7 +1085,8 @@ blockquote footer {
 
 .post-footer {
   margin-top: .75rem;
-  text-align: center; }
+  text-align: center;
+  font-family: "Lato", "Helvetica Neue", Helvetica, sans-serif; }
 
 .post-footer .avatar {
   margin: 2rem 0;
@@ -1103,7 +1111,10 @@ blockquote footer {
 
   h1,
   .h1 {
-    font-size: 2.998rem; }
+    font-size: 52px; }
+
+  h2 {
+    font-size: 36px; }
 
   .site-header {
     text-align: left; }
@@ -1112,10 +1123,10 @@ blockquote footer {
     margin-top: 0; }
 
   .site-header a {
-    font-size: 1rem; }
+    font-size: 24px; }
 
   .site-header .site-title {
-    font-size: 1.25rem;
+    font-size: 26px;
     float: left; }
 
   .site-header .site-nav {
@@ -1123,14 +1134,23 @@ blockquote footer {
     margin-top: .25rem; }
 
   blockquote {
-    margin-left: 2rem;
-    padding: 2rem; }
+    margin-left: 2rem; }
+
+  blockquote, blockquote p {
+    font-size: 28px; }
 
   .social-icons-left {
     text-align: left; }
 
   .social-icons-right {
-    text-align: right; } }
+    text-align: right; }
+
+  p, dl, ol, ul {
+    font-size: 20px;
+    letter-spacing: -0.006em; }
+
+  h1, h2, h3, h4, h5, h6 {
+    margin-top: 56px; } }
 @media screen and (min-width: 48em) {
   html {
     font-size: 18px; } }
@@ -1139,8 +1159,8 @@ blockquote footer {
     font-size: 20px; } }
 @media screen and (min-width: 78em) {
   em img {
-    max-width: 56rem;
-    margin-left: -7em; } }
+    max-width: 924px;
+    margin-left: -112px; } }
 .gist,
 .gist .highlight .p {
   font-size: .75rem; }
@@ -1150,7 +1170,7 @@ blockquote footer {
 
 .measure {
   margin: 0 auto;
-  max-width: 42rem; }
+  max-width: 700px; }
 
 .pagination {
   font-size: 1rem;
