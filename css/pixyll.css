@@ -703,7 +703,8 @@ code.highlighter-rouge {
 pre {
   padding: 20px 30px 20px;
   overflow-x: scroll;
-  margin-bottom: 1.5rem;
+  margin-top: 30px;
+  margin-bottom: 30px;
   background-color: #F9FAFA;
   border: 1px solid #E6E6E6;
   tab-size: 4; }
@@ -1212,3 +1213,7 @@ blockquote footer {
 .button-disabled:focus {
   cursor: not-allowed;
   background-color: #999; }
+
+figure {
+  margin-top: 43px;
+  margin-bottom: 20px; }
