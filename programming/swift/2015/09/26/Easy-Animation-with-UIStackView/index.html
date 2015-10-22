@@ -3,16 +3,16 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Hello, Pixyll &#8211; nRewik's Blog</title>
+    <title>Easy Animation with UIStackView &#8211; nRewik's Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Pixyll is a simple, beautiful theme for Jekyll that emphasizes content rather than aesthetic fluff.">
+    <meta name="description" content="Animate UIStackView like a pro.">
     <meta name="author" content="Nutchaphon Rewik">
-    <meta name="keywords" content="jekyll, pixyll">
-    <link rel="canonical" href="//jekyll/pixyll/2014/06/11/welcome-to-pixyll/">
+    <meta name="keywords" content="programming, swift">
+    <link rel="canonical" href="//programming/swift/2015/09/26/Easy-Animation-with-UIStackView/">
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for nRewik's Blog" href="/feed.xml" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/pixyll.css?201510221701" type="text/css">
+    <link rel="stylesheet" href="/css/pixyll.css?201510221712" type="text/css">
 
     <!-- Fonts -->
     <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
@@ -30,17 +30,17 @@
     <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
     <meta property="og:locale" content="en_US">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Hello, Pixyll">
+    <meta property="og:title" content="Easy Animation with UIStackView">
     <meta property="og:description" content="">
-    <meta property="og:url" content="//jekyll/pixyll/2014/06/11/welcome-to-pixyll/">
+    <meta property="og:url" content="//programming/swift/2015/09/26/Easy-Animation-with-UIStackView/">
     <meta property="og:site_name" content="nRewik's Blog">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary" />
     
-    <meta name="twitter:title" content="Hello, Pixyll" />
-    <meta name="twitter:description" content="Pixyll is a simple, beautiful theme for Jekyll that emphasizes content rather than aesthetic fluff." />
-    <meta name="twitter:url" content="//jekyll/pixyll/2014/06/11/welcome-to-pixyll/" />
+    <meta name="twitter:title" content="Easy Animation with UIStackView" />
+    <meta name="twitter:description" content="Animate UIStackView like a pro." />
+    <meta name="twitter:url" content="//programming/swift/2015/09/26/Easy-Animation-with-UIStackView/" />
 
     <!-- Icons -->
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
@@ -90,8 +90,8 @@
 
 
 <div class="post-header mb2">
-  <h1>Hello, Pixyll</h1>
-  <span class="post-meta">Jun 11, 2014</span><br>
+  <h1>Easy Animation with UIStackView</h1>
+  <span class="post-meta">Sep 26, 2015</span><br>
   
   <span class="post-meta small">
   
@@ -101,24 +101,27 @@
 </div>
 
 <article class="post-content">
-  <p>Hello.</p>
+  <p><strong>UIStackView</strong> leverages the power of Auto Layout by managing the layout of all the views inside. You can change property of UIStackView or its arranged subview, and place these changes inside an animation block.</p>
 
-<p>Pixyll is a simple, beautiful theme for Jekyll that emphasizes content rather than aesthetic fluff. It’s mobile <em>first</em>, fluidly responsive, and delightfully lightweight.</p>
+<p>For example, changing <code class="highlighter-rouge">hidden</code> property of the arranged subview.</p>
 
-<p>It’s pretty minimal, but leverages large type and drastic contrast to make a statement, on all devices.</p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kt">UIView</span><span class="o">.</span><span class="nf">animateWithDuration</span><span class="p">(</span><span class="mf">0.3</span><span class="p">){</span>
+    <span class="n">viewInsideStackView</span><span class="o">.</span><span class="n">hidden</span> <span class="o">=</span> <span class="kc">true</span> <span class="c1">//or false</span>
+<span class="p">}</span>
+</code></pre>
+</div>
 
-<blockquote>
-  <p>
-    Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.
-  </p>
-  <footer><cite title="Antoine de Saint-Exupéry">Antoine de Saint-Exupéry</cite></footer>
-</blockquote>
+<p>Here’s the animation.</p>
 
-<h2 id="where-is-it">Where is it?</h2>
+<figure class="center"><img src="/images/easy-animation-with-ui-stack-view-1.gif" /></figure>
 
-<p>Checkout the <a href="https://github.com/johnotander/pixyll">Github repository</a> to download it, request a feature, or report a bug.</p>
+<p>iOS encourages you to create adaptive UI, when working with UIStackView, you can define size-class specific values for many of the stack view’s properties directly in Interface Builder. UIStackView automatically animates these changes for you.</p>
 
-<p>It’s free, and open source (<a href="http://opensource.org/licenses/MIT">MIT</a>).</p>
+<p>For example, changing <code class="highlighter-rouge">axis</code> property of UIStackView in CompactHeight, and with some tweaks of the arranged subview’s constraints. You can have this animation without coding.</p>
+
+<figure class="center"><img src="/images/easy-animation-with-ui-stack-view-2.gif" /></figure>
+
+<p>For the detail of how constraints are set up, see the full project at GitHub <a href="https://github.com/nRewik/UIStackViewEasyAnimation">UIStackViewEasyAnimation</a></p>
 
 </article>
 
