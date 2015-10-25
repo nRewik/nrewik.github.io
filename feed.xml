@@ -31,7 +31,7 @@
   &lt;p&gt;Functions are not just  functions, they are variables.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;Functions are not just functions, they are variables. And being a variable means it belongs to a type. The validate function has &lt;code class=&quot;highlighter-rouge&quot;&gt;String–&amp;gt;Bool&lt;/code&gt; type, which doesn’t give any sense of a variable, so I will rename it to:&lt;/p&gt;
+&lt;p&gt;Functions are not just functions, they are variables. And being a variable means it belongs to a type. The validate function has &lt;code class=&quot;highlighter-rouge&quot;&gt;String–&amp;gt;Bool&lt;/code&gt; type, which doesn’t sound like any variable type, so I will rename it to:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;typealias&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Validator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Bool&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
@@ -127,7 +127,7 @@
 &lt;/blockquote&gt;
 
 &lt;h2 id=&quot;returning-functions&quot;&gt;Returning Functions&lt;/h2&gt;
-&lt;p&gt;Rule is now customisable, but still lack of combinability. &lt;em&gt;Transformer&lt;/em&gt; and &lt;em&gt;Combinator&lt;/em&gt; are function types that return a function, which allow the combinations of rules.&lt;/p&gt;
+&lt;p&gt;Rule is now customisable, but still lack of combinability. &lt;em&gt;Transformer&lt;/em&gt; and &lt;em&gt;Combiner&lt;/em&gt; are function types that return a function, which allow the combinations of rules. &lt;span class=&quot;yellow bold&quot;&gt;TK&lt;/span&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Transformer&lt;/strong&gt;&lt;br /&gt;
 A rule can be transformed to another rule. For example we might create a negate rule that yield opposite result.&lt;/p&gt;
@@ -176,7 +176,7 @@ A rule can be transformed to another rule. For example we might create a negate 
 &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;notPalindromRule&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;palindromeRule&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;Combinator&lt;/strong&gt;&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Combiner&lt;/strong&gt;&lt;br /&gt;
 A rule can be a combination of several rules. For example, we might create a rule that is combined from a logical conjunction, i.e. &lt;em&gt;and&lt;/em&gt;, &lt;em&gt;or&lt;/em&gt;. &lt;code class=&quot;highlighter-rouge&quot;&gt;ValidatorCombiner&lt;/code&gt; takes two validators and then produce a new one.&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;typealias&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;ValidatorCombiner&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Validator&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Validator&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Validator&lt;/span&gt;
