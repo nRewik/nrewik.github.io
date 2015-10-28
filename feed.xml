@@ -127,7 +127,7 @@
 &lt;/blockquote&gt;
 
 &lt;h2 id=&quot;returning-functions&quot;&gt;Returning Functions&lt;/h2&gt;
-&lt;p&gt;Rule is now customisable, but still lack of combinability. &lt;em&gt;Transformer&lt;/em&gt; and &lt;em&gt;Combiner&lt;/em&gt; are function types that return a function, which allow the combinations of rules. &lt;span class=&quot;yellow bold&quot;&gt;TK&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Rule is now customisable, but still lack of combinability. &lt;em&gt;Transformer&lt;/em&gt; and &lt;em&gt;Combiner&lt;/em&gt; are function types that return a function, which allow the combinations of rules.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Transformer&lt;/strong&gt;&lt;br /&gt;
 A rule can be transformed to another rule. For example we might create a negate rule that yield opposite result.&lt;/p&gt;
@@ -522,24 +522,6 @@ These are constraints that I setup in IB.&lt;/p&gt;
         <pubDate>Fri, 17 Jul 2015 00:00:00 +0000</pubDate>
         <link>//programming/swift/2015/07/17/Animation-with-Auto-Layout/</link>
         <guid isPermaLink="true">//programming/swift/2015/07/17/Animation-with-Auto-Layout/</guid>
-      </item>
-    
-      <item>
-        <title>Announcing Version 2.0</title>
-        <description>&lt;p&gt;In an effort to make Pixyll easier to customize and more aesthetically pleasing, we’ve release version &lt;code class=&quot;highlighter-rouge&quot;&gt;2.0&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Pixyll now features:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Line anchors in code blocks and new syntax highlighting&lt;/li&gt;
-  &lt;li&gt;A customizable variables file&lt;/li&gt;
-  &lt;li&gt;Modular, and lighter weight CSS&lt;/li&gt;
-  &lt;li&gt;No more &lt;code class=&quot;highlighter-rouge&quot;&gt;max-width&lt;/code&gt; media queries&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Sat, 11 Jul 2015 00:00:00 +0000</pubDate>
-        <link>//jekyll/pixyll/2015/07/11/announcing-pixyll-version-2/</link>
-        <guid isPermaLink="true">//jekyll/pixyll/2015/07/11/announcing-pixyll-version-2/</guid>
       </item>
     
   </channel>
