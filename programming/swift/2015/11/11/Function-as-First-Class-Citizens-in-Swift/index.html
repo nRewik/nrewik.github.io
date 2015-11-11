@@ -8,11 +8,11 @@
     <meta name="description" content="Why I need to write a function that return a function that return a function?">
     <meta name="author" content="Nutchaphon Rewik">
     <meta name="keywords" content="programming, swift">
-    <link rel="canonical" href="//programming/swift/2015/10/20/Function-as-First-Class-Citizens-in-Swift/">
+    <link rel="canonical" href="//programming/swift/2015/11/11/Function-as-First-Class-Citizens-in-Swift/">
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for nRewik's Blog" href="/feed.xml" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/pixyll.css?201511101624" type="text/css">
+    <link rel="stylesheet" href="/css/pixyll.css?201511111402" type="text/css">
 
     <!-- Fonts -->
     <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
@@ -32,7 +32,7 @@
     <meta property="og:type" content="article">
     <meta property="og:title" content="Function as First Class Citizens in Swift">
     <meta property="og:description" content="">
-    <meta property="og:url" content="//programming/swift/2015/10/20/Function-as-First-Class-Citizens-in-Swift/">
+    <meta property="og:url" content="//programming/swift/2015/11/11/Function-as-First-Class-Citizens-in-Swift/">
     <meta property="og:site_name" content="nRewik's Blog">
 
     <!-- Twitter Card -->
@@ -40,7 +40,7 @@
     
     <meta name="twitter:title" content="Function as First Class Citizens in Swift" />
     <meta name="twitter:description" content="Why I need to write a function that return a function that return a function?" />
-    <meta name="twitter:url" content="//programming/swift/2015/10/20/Function-as-First-Class-Citizens-in-Swift/" />
+    <meta name="twitter:url" content="//programming/swift/2015/11/11/Function-as-First-Class-Citizens-in-Swift/" />
 
     <!-- Icons -->
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
@@ -77,10 +77,10 @@
     <header class="site-header px2 px-responsive">
   <div class="mt2 wrap">
     <div class="measure">
-      <a href="/">
+      <!-- <a href="/">
         <img class="site-title site-title-logo" src="/logo.png"/>
-      </a>
-      <div class"clearfix"/>
+      </a> -->
+      <!-- <div class"clearfix"/> -->
       <a href="/" class="site-title">nRewik's Blog</a>
       <nav class="site-nav">
         <a href="#">Portfolio</a>
@@ -100,7 +100,7 @@
 
 <div class="post-header mb2">
   <h1>Function as First Class Citizens in Swift</h1>
-  <span class="post-meta">Oct 20, 2015</span><br>
+  <span class="post-meta">Nov 11, 2015</span><br>
   
   <span class="post-meta small">
   
@@ -112,7 +112,7 @@
 <article class="post-content">
   <p>Why I need to write a function that return a function that return a function ? This is the question that I was confused when I start learning Functional Programming.</p>
 
-<p><strong>“Functions as first-class citizens”</strong> is an elusive concept for beginners. This article will shows how to treat function properly by giving an example of writing a rule-based string validator.</p>
+<p><strong>“Functions as first-class citizens”</strong> is an elusive concept for beginners. This article will show you, how to treat function properly by giving an example of writing a rule-based string validator.</p>
 
 <p>You can see the full source code at <a href="https://gist.github.com/nRewik/c2cfcc041928db562df8">nRewik/Rule.swift</a></p>
 
@@ -133,7 +133,7 @@
   <p>Functions are not just  functions, they are variables.</p>
 </blockquote>
 
-<p>Functions are not just functions, they are variables. And being a variable means it belongs to a type. The validate function has <code class="highlighter-rouge">String–&gt;Bool</code> type, which doesn’t sound like any variable type, so I will rename it to:</p>
+<p>Functions are not just functions, they are variables. And being a variable means it belongs to a type. The validate function has <code class="highlighter-rouge">String–&gt;Bool</code> function type, which doesn’t sound like any variable type, so I will rename it to:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">typealias</span> <span class="kt">Validator</span> <span class="o">=</span> <span class="kt">String</span> <span class="o">-&gt;</span> <span class="kt">Bool</span>
 </code></pre>

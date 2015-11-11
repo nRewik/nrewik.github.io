@@ -10,7 +10,7 @@
         <title>Function as First Class Citizens in Swift</title>
         <description>&lt;p&gt;Why I need to write a function that return a function that return a function ? This is the question that I was confused when I start learning Functional Programming.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;“Functions as first-class citizens”&lt;/strong&gt; is an elusive concept for beginners. This article will shows how to treat function properly by giving an example of writing a rule-based string validator.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;“Functions as first-class citizens”&lt;/strong&gt; is an elusive concept for beginners. This article will show you, how to treat function properly by giving an example of writing a rule-based string validator.&lt;/p&gt;
 
 &lt;p&gt;You can see the full source code at &lt;a href=&quot;https://gist.github.com/nRewik/c2cfcc041928db562df8&quot;&gt;nRewik/Rule.swift&lt;/a&gt;&lt;/p&gt;
 
@@ -31,7 +31,7 @@
   &lt;p&gt;Functions are not just  functions, they are variables.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;Functions are not just functions, they are variables. And being a variable means it belongs to a type. The validate function has &lt;code class=&quot;highlighter-rouge&quot;&gt;String–&amp;gt;Bool&lt;/code&gt; type, which doesn’t sound like any variable type, so I will rename it to:&lt;/p&gt;
+&lt;p&gt;Functions are not just functions, they are variables. And being a variable means it belongs to a type. The validate function has &lt;code class=&quot;highlighter-rouge&quot;&gt;String–&amp;gt;Bool&lt;/code&gt; function type, which doesn’t sound like any variable type, so I will rename it to:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;typealias&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Validator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Bool&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
@@ -252,9 +252,9 @@ A rule can be a combination of several rules. For example, we might create a rul
 &lt;p&gt;To answer my question “Why I need to write a function that return a function that return a function ?”. Why? because you can. If you have function as a variable mindset, there’s nothing to be confused. You treat them like you used to. Storing, passing, returning them as you do with Int, String, Bool. 😃&lt;/p&gt;
 
 </description>
-        <pubDate>Tue, 20 Oct 2015 00:00:00 +0000</pubDate>
-        <link>//programming/swift/2015/10/20/Function-as-First-Class-Citizens-in-Swift/</link>
-        <guid isPermaLink="true">//programming/swift/2015/10/20/Function-as-First-Class-Citizens-in-Swift/</guid>
+        <pubDate>Wed, 11 Nov 2015 00:00:00 +0000</pubDate>
+        <link>//programming/swift/2015/11/11/Function-as-First-Class-Citizens-in-Swift/</link>
+        <guid isPermaLink="true">//programming/swift/2015/11/11/Function-as-First-Class-Citizens-in-Swift/</guid>
       </item>
     
       <item>
