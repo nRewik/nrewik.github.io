@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Implementing Flux in Swift &#8211; nRewik's Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A one-way traffic pattern.">
+    <meta name="author" content="Nutchaphon Rewik">
+    <meta name="keywords" content="programming, swift">
+    <link rel="canonical" href="https://nrewik.github.io/programming/swift/2015/12/26/Flux-in-Swift/">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for nRewik's Blog" href="/feed.xml" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css?201512261147" type="text/css">
+
+    <!-- Fonts -->
+    <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    
+      <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+    
+
+    <!-- Verifications -->
+    
+      <meta name="google-site-verification" content="hqSVqSrewlOa-h85DXYE9ZawUCTrGu8BJ4yxwi8BfHg" />
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Implementing Flux in Swift">
+    <meta property="og:description" content="">
+    <meta property="og:url" content="https://nrewik.github.io/programming/swift/2015/12/26/Flux-in-Swift/">
+    <meta property="og:site_name" content="nRewik's Blog">
+    <meta property="og:image" content="https://nrewik.github.io/favicon-192x192.png" >
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    
+    <meta name="twitter:title" content="Implementing Flux in Swift" />
+    <meta name="twitter:description" content="A one-way traffic pattern." />
+    <meta name="twitter:url" content="https://nrewik.github.io/programming/swift/2015/12/26/Flux-in-Swift/" />
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+
+    
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-69204553-1']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    
+</head>
+
+<body class="site">
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <!-- <a href="/">
+        <img class="site-title site-title-logo" src="/logo.png"/>
+      </a> -->
+      <!-- <div class"clearfix"/> -->
+      <a href="https://nrewik.github.io" class="site-title">nRewik's Blog</a>
+      <nav class="site-nav">
+        <a href="#">Portfolio</a>
+<a href="/about/">About</a>
+
+      </nav>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        
+
+
+<div class="post-header mb2">
+  <h1>Implementing Flux in Swift</h1>
+  <span class="post-meta">Dec 26, 2015</span><br>
+  
+  <span class="post-meta small">
+  
+    6 minute read
+  
+  </span>
+</div>
+
+<article class="post-content">
+  <p><a href="https://facebook.github.io/flux/docs/overview.html">Flux</a> is an application architecture designed by Facebook. Unlike MVC and MVVM, Flux governs data to flow in a single direction. It makes data more predictable, and make bugs easier to trackdown. In this article, I will show my attempt to implement Flux in Swift—with iOS Todo app.</p>
+
+<figure class="center"><img alt="flux todo app" src="/images/flux-todo-app.png" /></figure>
+
+<p>The full source code can be found at <a href="https://github.com/nRewik/Flux-in-Swift-Example">nRewik/Flux-in-Swift-Example</a></p>
+
+<h2 id="the-big-picture">The big picture</h2>
+
+<figure class="center"><img alt="flux diagram" src="/images/flux-digram.png" /></figure>
+
+<p>The heart of Flux is the one-way route, called a uni-directional data flow, which is illustrated by the arrows pointing forward in a single direction.</p>
+
+<p>Unlike MV* patterns that components can talk back and forth, Flux’s components can only talk forward. They only talk to someone they trust, for example, stores only talk to views.</p>
+
+<p>Talking to everyone without getting feedback, means you are talking to no one. Flux’s components listen for feedback events after talking. They again only listen to someone they trust, for example, stores only listen to the dispatcher.</p>
+
+<p>In summary, We can think of Flux as pub/sub services!</p>
+
+<h2 id="components">Components</h2>
+
+<p>Action, Dispatcher, Store and View—are the four main components in Flux. Their roles can be summarised as follows:</p>
+
+<p><strong>Action</strong></p>
+
+<ul>
+  <li>simple object containing the new data and an identifying type property.</li>
+</ul>
+
+<p><strong>Store</strong></p>
+
+<ul>
+  <li>stores and manages application states.</li>
+  <li>listens to the dispatcher, recieve all actions sent from the dispatcher.</li>
+  <li>performs some actions.</li>
+  <li>emits an event when states are changed.</li>
+</ul>
+
+<p><strong>Dispatcher</strong></p>
+
+<ul>
+  <li>the workload distribution centre.</li>
+  <li>dispatches all works to all stores.</li>
+</ul>
+
+<p><strong>View</strong></p>
+
+<ul>
+  <li>renders UI from store’s state.</li>
+  <li>listens to stores. Whenever stores emit an event, views will update UI corresponding to the new store’s states.</li>
+  <li>emits and propagates actions through the dispatcher.</li>
+</ul>
+
+<h2 id="begin-with-store">Begin with Store</h2>
+
+<p>Store manages the application state and logic. They are akin to models in MVC, but stores manage more than a single piece of data. Stores are singleton classes. They are self-contained universes, completely in control of their data and behaviour. Each store is a single source of truth in its domain.</p>
+
+<p><strong>manages application states</strong><br />
+In this app, <strong>TodoStore</strong> manages everything about <strong>TodoItem</strong>. It knows how to store, create, delete and edit todo items.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">struct</span> <span class="kt">TodoItem</span><span class="p">{</span>
+    <span class="k">let</span> <span class="nv">id</span> <span class="o">=</span> <span class="kt">NSUUID</span><span class="p">()</span><span class="o">.</span><span class="kt">UUIDString</span>
+    <span class="k">var</span> <span class="nv">text</span> <span class="o">=</span> <span class="s">"hello world!"</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">TodoStore</span><span class="p">{</span>
+
+	<span class="c1">// Singleton</span>
+    <span class="kd">static</span> <span class="k">let</span> <span class="nv">defaultStore</span> <span class="o">=</span> <span class="kt">TodoStore</span><span class="p">()</span>
+    <span class="kd">private</span> <span class="nf">init</span><span class="p">(){</span> <span class="p">}</span>
+
+    <span class="c1">// TodoItems List</span>
+    <span class="k">var</span> <span class="nv">todoList</span><span class="p">:</span> <span class="p">[</span><span class="kt">TodoItem</span><span class="p">]{</span> <span class="k">return</span> <span class="n">_todoList</span> <span class="p">}</span>
+    <span class="kd">private</span> <span class="k">var</span> <span class="nv">_todoList</span><span class="p">:</span> <span class="p">[</span><span class="kt">TodoItem</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="c1">// Action Handler</span>
+    <span class="kd">func</span> <span class="nf">addTodo</span><span class="p">(</span><span class="nv">todo</span><span class="p">:</span> <span class="kt">TodoItem</span><span class="p">){</span>
+        <span class="n">_todoList</span> <span class="o">+=</span> <span class="p">[</span><span class="n">todo</span><span class="p">]</span>
+    <span class="p">}</span>
+    <span class="kd">func</span> <span class="nf">editTodo</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">text</span><span class="p">:</span> <span class="kt">String</span><span class="p">){</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+    <span class="kd">func</span> <span class="nf">deleteTodo</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">){</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+<p><strong>emits change events</strong><br />
+Stores should emit an event when their states are changed. The event will be sent to listeners. This can be done with delegate pattern. We will be creating this behaviour as a <strong>Store</strong> protocol, since this is a common behaviour for every store.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">protocol</span> <span class="kt">StoreListener</span><span class="p">:</span> <span class="kd">class</span><span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">storeDidChanged</span><span class="p">(</span> <span class="nv">store</span><span class="p">:</span> <span class="kt">Store</span> <span class="p">)</span>
+<span class="p">}</span>
+<span class="kd">protocol</span> <span class="kt">Store</span><span class="p">:</span> <span class="kd">class</span><span class="p">{</span>
+    <span class="k">var</span> <span class="nv">listeners</span> <span class="p">:</span> <span class="p">[</span> <span class="kt">StoreListener</span> <span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// protocol extension</span>
+<span class="kd">extension</span> <span class="kt">Store</span><span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">registerStoreChanged</span><span class="p">(</span> <span class="nv">listener</span><span class="p">:</span> <span class="kt">StoreListener</span><span class="p">){</span>
+        <span class="k">guard</span> <span class="kc">nil</span> <span class="o">==</span> <span class="p">(</span> <span class="n">listeners</span><span class="o">.</span><span class="n">indexOf</span><span class="p">{</span> <span class="nv">$0</span> <span class="o">===</span> <span class="n">listener</span> <span class="p">}</span> <span class="p">)</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>
+        <span class="n">listeners</span> <span class="o">+=</span> <span class="p">[</span><span class="n">listener</span><span class="p">]</span>
+    <span class="p">}</span>
+    <span class="kd">func</span> <span class="nf">unregisterStoreChanged</span><span class="p">(</span> <span class="nv">listener</span><span class="p">:</span> <span class="kt">StoreListener</span><span class="p">){</span>
+        <span class="k">guard</span> <span class="k">let</span> <span class="nv">removedIndex</span> <span class="o">=</span> <span class="p">(</span><span class="n">listeners</span><span class="o">.</span><span class="n">indexOf</span><span class="p">{</span> <span class="nv">$0</span> <span class="o">===</span> <span class="n">listener</span><span class="p">}</span> <span class="p">)</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>
+        <span class="n">listeners</span><span class="o">.</span><span class="nf">removeAtIndex</span><span class="p">(</span><span class="n">removedIndex</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="kd">func</span> <span class="nf">emitChangeEvent</span><span class="p">(){</span>
+        <span class="k">for</span> <span class="n">listener</span> <span class="k">in</span> <span class="n">listeners</span><span class="p">{</span>
+            <span class="n">listener</span><span class="o">.</span><span class="nf">storeDidChanged</span><span class="p">(</span><span class="k">self</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Then we adopt Store trait to TodoStore.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">TodoStore</span><span class="p">:</span> <span class="kt">Store</span><span class="p">{</span>
+
+    <span class="c1">// ...</span>
+
+	<span class="c1">// MARK: - Store</span>
+    <span class="k">var</span> <span class="nv">listeners</span><span class="p">:</span> <span class="p">[</span><span class="kt">StoreListener</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+	<span class="c1">// Action Handler</span>
+    <span class="kd">func</span> <span class="nf">addTodo</span><span class="p">(</span><span class="nv">todo</span><span class="p">:</span> <span class="kt">TodoItem</span><span class="p">){</span>
+        <span class="n">_todoList</span> <span class="o">+=</span> <span class="p">[</span><span class="n">todo</span><span class="p">]</span>
+        <span class="nf">emitChangeEvent</span><span class="p">()</span> <span class="c1">// also do this to `editTodo` and `deleteTodo`</span>
+    <span class="p">}</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p><strong>Dispatcher callback</strong></p>
+
+<p>Each store has a dispatcher callback. This callback will be called from the dispatcher when someone create an action. Stores should handle some actions inside this callback, by investigating action type in <strong>Payload</strong>.</p>
+
+<p>When stores are creating, they should register their callback to the dispatcher. After register a callback, we will get <strong>dispatcher token</strong>. This token is useful to identify a callback. We can use this token to unregister a callback later.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">struct</span> <span class="kt">Payload</span><span class="p">{</span>
+    <span class="k">var</span> <span class="nv">type</span> <span class="o">=</span> <span class="s">""</span> <span class="c1">// to identify action type</span>
+    <span class="k">var</span> <span class="nv">data</span><span class="p">:</span> <span class="p">[</span> <span class="kt">String</span> <span class="p">:</span> <span class="kt">AnyObject</span> <span class="p">]</span> <span class="o">=</span> <span class="p">[:]</span> <span class="c1">// associated data</span>
+<span class="p">}</span>
+
+<span class="kd">protocol</span> <span class="kt">Store</span><span class="p">:</span> <span class="kd">class</span><span class="p">{</span>
+	<span class="c1">// ...</span>
+    <span class="k">var</span> <span class="nv">dispatcherToken</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span>
+    <span class="kd">func</span> <span class="nf">dispatcherCallback</span><span class="p">(</span> <span class="nv">payload</span><span class="p">:</span> <span class="kt">Payload</span> <span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">TodoStore</span><span class="p">:</span> <span class="kt">Store</span><span class="p">{</span>
+
+    <span class="c1">// ...</span>
+	<span class="kd">private</span> <span class="nf">init</span><span class="p">(){</span>
+        <span class="n">dispatcherToken</span> <span class="o">=</span> <span class="kt">Dispatcher</span><span class="o">.</span><span class="nf">register</span><span class="p">(</span><span class="n">dispatcherCallback</span><span class="p">)</span>
+    <span class="p">}</span>
+
+	<span class="c1">// MARK: - Store</span>
+	<span class="c1">// ...</span>
+	<span class="k">var</span> <span class="nv">dispatcherToken</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">""</span>
+    <span class="kd">func</span> <span class="nf">dispatcherCallback</span><span class="p">(</span> <span class="nv">payload</span><span class="p">:</span> <span class="kt">Payload</span> <span class="p">){</span>
+
+    	<span class="c1">// investigate action type</span>
+        <span class="k">switch</span> <span class="n">payload</span><span class="o">.</span><span class="n">type</span><span class="p">{</span>
+        <span class="k">case</span> <span class="kt">TodoAction</span><span class="o">.</span><span class="kt">CREATE_TODO</span><span class="p">:</span>
+        	<span class="c1">// extract associated data from payload</span>
+            <span class="k">guard</span> <span class="k">let</span> <span class="nv">text</span> <span class="o">=</span> <span class="n">payload</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">"text"</span><span class="p">]</span> <span class="k">as?</span> <span class="kt">String</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>
+            <span class="k">let</span> <span class="nv">newTodo</span> <span class="o">=</span> <span class="kt">TodoItem</span><span class="p">(</span><span class="nv">text</span><span class="p">:</span> <span class="n">text</span><span class="p">)</span>
+			<span class="c1">// perform action</span>
+            <span class="nf">addTodo</span><span class="p">(</span><span class="n">newTodo</span><span class="p">)</span>
+
+        <span class="k">case</span> <span class="kt">TodoAction</span><span class="o">.</span><span class="kt">EDIT_TODO</span><span class="p">:</span>
+            <span class="cm">/* ... */</span>
+        <span class="k">case</span> <span class="kt">TodoAction</span><span class="o">.</span><span class="kt">DELETE_TODO</span><span class="p">:</span>
+            <span class="cm">/* ... */</span>
+        <span class="k">default</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h2 id="dispatcher">Dispatcher</h2>
+<p>Dispatcher is the workload distribution centre. It sends every action to every store, by calling callback functions that registered by stores. An app should have only one dispatcher, called a single dispatcher.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">Dispatcher</span><span class="p">{</span>
+    
+    <span class="kd">typealias</span> <span class="kt">DispatcherCallback</span> <span class="o">=</span> <span class="p">(</span> <span class="kt">Payload</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="p">)</span>
+    
+    <span class="kd">private</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">_callbacks</span> <span class="p">:</span> <span class="p">[</span> <span class="kt">String</span> <span class="p">:</span> <span class="kt">DispatcherCallback</span> <span class="p">]</span> <span class="o">=</span> <span class="p">[:]</span>
+    
+    <span class="kd">static</span> <span class="kd">func</span> <span class="nf">dispatch</span><span class="p">(</span> <span class="nv">payload</span><span class="p">:</span> <span class="kt">Payload</span> <span class="p">){</span>
+        <span class="k">for</span> <span class="n">callback</span> <span class="k">in</span> <span class="n">_callbacks</span><span class="o">.</span><span class="n">values</span><span class="p">{</span>
+            <span class="nf">callback</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    
+    <span class="kd">static</span> <span class="kd">func</span> <span class="nf">register</span><span class="p">(</span><span class="nv">callback</span><span class="p">:</span> <span class="kt">DispatcherCallback</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">{</span>
+        <span class="k">let</span> <span class="nv">token</span> <span class="o">=</span> <span class="kt">NSUUID</span><span class="p">()</span><span class="o">.</span><span class="kt">UUIDString</span>
+        <span class="n">_callbacks</span><span class="p">[</span><span class="n">token</span><span class="p">]</span> <span class="o">=</span> <span class="n">callback</span>
+        <span class="k">return</span> <span class="n">token</span>
+    <span class="p">}</span>
+    
+    <span class="kd">static</span> <span class="kd">func</span> <span class="nf">unregister</span><span class="p">(</span><span class="nv">token</span><span class="p">:</span> <span class="kt">String</span><span class="p">){</span>
+        <span class="n">_callbacks</span><span class="p">[</span><span class="n">token</span><span class="p">]</span> <span class="o">=</span> <span class="kc">nil</span>
+    <span class="p">}</span>
+    
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h2 id="action">Action</h2>
+<p>Action can be triggered by calling <code class="highlighter-rouge">Dispatcher.dispatch</code> with payload data. Flux has helper functions called action creators. They create and send actions to the dispatcher with convenient and semantic API.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">TodoAction</span><span class="p">{</span>
+    
+    <span class="c1">// MARK: - Action Type</span>
+    <span class="kd">static</span> <span class="k">let</span> <span class="nv">CREATE_TODO</span> <span class="o">=</span> <span class="s">"CREATE_TODO"</span>
+    <span class="kd">static</span> <span class="k">let</span> <span class="nv">EDIT_TODO</span> <span class="o">=</span> <span class="s">"EDIT_TODO"</span>
+    <span class="kd">static</span> <span class="k">let</span> <span class="nv">DELETE_TODO</span> <span class="o">=</span> <span class="s">"DELETE_TODO"</span>
+    
+    <span class="c1">// MARK: - Action Creator</span>
+    <span class="kd">static</span> <span class="kd">func</span> <span class="nf">create</span><span class="p">(</span><span class="nv">text</span><span class="p">:</span> <span class="kt">String</span><span class="p">){</span>
+        <span class="k">let</span> <span class="nv">payload</span> <span class="o">=</span> <span class="kt">Payload</span><span class="p">(</span><span class="nv">type</span><span class="p">:</span> <span class="kt">TodoAction</span><span class="o">.</span><span class="kt">CREATE_TODO</span><span class="p">,</span> <span class="nv">data</span><span class="p">:</span> <span class="p">[</span> <span class="s">"text"</span> <span class="p">:</span> <span class="n">text</span> <span class="p">]</span> <span class="p">)</span>
+        <span class="kt">Dispatcher</span><span class="o">.</span><span class="nf">dispatch</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="kd">static</span> <span class="kd">func</span> <span class="nf">edit</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">text</span><span class="p">:</span> <span class="kt">String</span><span class="p">){</span> <span class="cm">/*...*/</span> <span class="p">}</span>
+    <span class="kd">static</span> <span class="kd">func</span> <span class="nf">delete</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">){</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h2 id="view">View</h2>
+<p>View in flux is a controller-view. It renders UI from store’s states, emit actions, listen to change event from stores.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">TodoViewController</span><span class="p">:</span> <span class="kt">UIViewController</span> <span class="p">{</span>
+
+    <span class="k">var</span> <span class="nv">todoStore</span> <span class="o">=</span> <span class="kt">TodoStore</span><span class="o">.</span><span class="n">defaultStore</span>
+    
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">viewWillAppear</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="o">.</span><span class="nf">viewWillAppear</span><span class="p">(</span><span class="n">animated</span><span class="p">)</span>
+        <span class="n">todoStore</span><span class="o">.</span><span class="nf">registerStoreChanged</span><span class="p">(</span><span class="k">self</span><span class="p">)</span>
+    <span class="p">}</span>
+    
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">viewWillDisappear</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="o">.</span><span class="nf">viewWillDisappear</span><span class="p">(</span><span class="n">animated</span><span class="p">)</span>
+        <span class="n">todoStore</span><span class="o">.</span><span class="nf">unregisterStoreChanged</span><span class="p">(</span><span class="k">self</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="c1">//MARK: - StoreListener</span>
+   <span class="kd">func</span> <span class="nf">storeDidChanged</span><span class="p">(</span><span class="nv">store</span><span class="p">:</span> <span class="kt">Store</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// refresh new data when store is updated.</span>
+        <span class="n">tableView</span><span class="o">.</span><span class="nf">reloadData</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>User interactions might cause view to emit actions, for example, when user tap + button to create todo item.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">TodoViewController</span><span class="p">:</span> <span class="kt">UIViewController</span> <span class="p">{</span>
+
+    <span class="kd">@IBAction</span> <span class="kd">func</span> <span class="nf">addButtonTapped</span><span class="p">(</span><span class="nv">sender</span><span class="p">:</span> <span class="kt">UIBarButtonItem</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">TodoAction</span><span class="o">.</span><span class="nf">create</span><span class="p">(</span><span class="s">"My New Todo"</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Flux has its unfair strengths. Flux defines an explicit path of how data should flow. This of course, makes data more predictable. Tracking down bugs and maintainance would be easier with Flux. And it is a good pattern to deal with data that change over time.</p>
+
+<p>I’ve never used Flux in the real iOS app. I feel that dealing with dependency between components is a bit frustating. Maybe, because the two-way communication still dominates over my brain 🙄.</p>
+
+
+</article>
+
+
+
+
+  <div class="py2 post-footer">
+  <img src="/images/me.png" alt="John Otander" class="avatar" />
+  <p>
+  	Nutchaphon Rewik. An iOS developer based in Bangkok, Thailand. He spends part of his day admiring the beauty of code, and the rest of his time for building things.
+  </p>
+  <p>
+    Follow him on <a href="https://github.com/nRewik">GitHub</a>.
+  </p>
+</div>
+
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="center">
+	<div class="measure footer">
+		<small>
+			Made with <3</br>
+			Copyright 2015 © Nutchaphon Rewik.
+		</small>
+		<div class="social-footer">
+		
+			<div class="social-icons">
+  <div class="social-icons-center">
+    
+      <a class="fa fa-github" href="https://github.com/nrewik"></a>
+    
+    
+    
+      <a class="fa fa-stack-overflow" href="https://stackoverflow.com/users/1314783"></a>
+    
+    
+    
+    
+    
+    
+      <a class="fa fa-medium" href="https://medium.com/@nrewik"></a>
+    
+    
+      <a class="fa fa-envelope" href="mailto:nrewik@outlook.com"></a>
+    
+    <a class="fa fa-rss" href="/feed.xml"></a>
+  </div>
+  <div class="right">
+    
+    
+    
+  </div>
+</div>
+<div class="clearfix"></div>
+
+		
+		</div>
+	</div>
+
+</footer>
+
+</body>
+</html>
